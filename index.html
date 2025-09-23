@@ -91,6 +91,12 @@
                     <a href="#projects" class="text-white hover:text-[#9AA9CF] transition-colors" data-lang-key="nav_projects">Engineering Projects</a>
                     <a href="#videos" class="text-white hover:text-[#9AA9CF] transition-colors" data-lang-key="nav_videos">Video & Voice-over</a>
                 </div>
+                <!-- Resume buttons added here -->
+                <div class="flex space-x-2 mt-2 md:mt-0">
+                    <a href="resume/Resume English.pdf" target="_blank" class="lang-button" data-lang-key="resume_en">Resume (EN)</a>
+                    <a href="resume/Resume Japan.pdf" target="_blank" class="lang-button" data-lang-key="resume_jp">Resume (JP)</a>
+                </div>
+                <!-- Language buttons -->
                 <div class="flex space-x-2 mt-2 md:mt-0">
                     <button class="lang-button active" onclick="changeLanguage('en')">EN</button>
                     <button class="lang-button" onclick="changeLanguage('th')">TH</button>
@@ -233,6 +239,8 @@
             'en': {
                 'nav_projects': 'Engineering Projects',
                 'nav_videos': 'Video & Voice-over',
+                'resume_en': 'Resume (EN)',
+                'resume_jp': 'Resume (JP)',
                 'section_projects_title': 'Computer Engineering & AI Projects',
                 'proj1_title': 'Mini Car with ESP32 & AMG88xx Infrared Camera and Control Web App',
                 'proj1_desc': 'This project uses ESP32-CAM to stream video (MJPEG), control motors, and read real-time thermal sensor data (AMG88xx) via Server-Sent Events (SSE).',
@@ -258,11 +266,13 @@
                     'Guided Thai language practice and cultural exchange activities, such as Thai dance, at Srinakharinwirot University Prasarnmit Demonstration School.',
                     'Acted as a guide for a trip to Talat Rot Fai Srinakarin (Train Night Market).'
                 ],
-                'footer_text': 'Created by Nuttamon Chanseeda, 2025'
+                'footer_text': 'Created by Nuttamon Chanseeda &copy; 2025'
             },
             'th': {
                 'nav_projects': 'ผลงานวิศวกรรม',
                 'nav_videos': 'ผลงานวีดีโอและพากย์เสียง',
+                'resume_en': 'เรซูเม่ (อังกฤษ)',
+                'resume_jp': 'เรซูเม่ (ญี่ปุ่น)',
                 'section_projects_title': 'ผลงานด้านวิศวกรรมคอมพิวเตอร์และปัญญาประดิษฐ์',
                 'proj1_title': 'รถจิ๋วติดกล้องอินฟาเรด AMG88xx & ESP32 และเว็บแอพควบคุม',
                 'proj1_desc': 'โปรเจกต์นี้ใช้ ESP32-CAM เพื่อสตรีมวิดีโอ (MJPEG) ควบคุมมอเตอร์ และอ่านข้อมูลเซ็นเซอร์ความร้อน (AMG88xx) แบบเรียลไทม์ผ่าน Server-Sent Events (SSE).',
@@ -288,11 +298,13 @@
                     'พาไปทำกิจกรรมฝึกภาษาไทยและแลกเปลี่ยนวัฒนธรรมไทย เช่น รำไทย ที่โรงเรียนมศว.ประสานมิตรฝ่ายมัธยม',
                     'เป็นไกด์พาเที่ยวตลาดนัดรถไฟศรีนครินทร์ (ตลาดโบราณ)'
                 ],
-                'footer_text': 'สร้างสรรค์โดย นัทธมน จันทร์สีดา, 2025'
+                'footer_text': 'สร้างสรรค์โดย นัทธมน จันทร์สีดา &copy; 2025'
             },
             'jp': {
                 'nav_projects': 'エンジニアリングプロジェクト',
                 'nav_videos': '動画・ナレーション',
+                'resume_en': '履歴書 (英語)',
+                'resume_jp': '履歴書 (日本語)',
                 'section_projects_title': 'コンピューター工学およびAIプロジェクト',
                 'proj1_title': 'ESP32およびAMG88xx赤外線カメラ搭載ミニカーおよび制御ウェブアプリ',
                 'proj1_desc': 'このプロジェクトは、ESP32-CAMを使用して、ビデオ(MJPEG)のストリーミング、モーターの制御、およびServer-Sent Events(SSE)を介したAMG88xx熱センサーデータのリアルタイム読み取りを行います。',
@@ -318,7 +330,7 @@
                     'シナーカリンウィロート大学プラサーンミット実習学校でタイ語練習やタイ舞踊などの文化交流活動を指導しました。',
                     'タラート・ロットファイ・シーナカリン（鉄道ナイトマーケット）への旅行ガイドを務めました。'
                 ],
-                'footer_text': '作成者：Nuttamon Chanseeda, 2025'
+                'footer_text': '作成者：Nuttamon Chanseeda &copy; 2025'
             }
         };
 
