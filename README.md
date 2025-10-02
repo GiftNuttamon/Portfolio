@@ -1,13 +1,17 @@
 # 🌐 Personal Portfolio – Nuttamon Chanseeda  
-
 > 🎓 Computer Engineering Student (TNI, CE15) | IoT • Web  
 > A showcase of my academic, freelance, and extracurricular projects  
+
+<img src="./img/port.png" alt="myweb" width="600">
 
 [![View Portfolio](https://img.shields.io/badge/View-Portfolio-blue?style=for-the-badge&logo=github)](https://giftnuttamon.github.io/Portfolio/)  
 [![Resume EN](https://img.shields.io/badge/Resume-English-green?style=for-the-badge)](./resume/Resume%20English.pdf)  
 [![Resume JP](https://img.shields.io/badge/Resume-日本語-red?style=for-the-badge)](./resume/Resume%20Japan.pdf)  
 
----
+<p align="left">
+  <img src="./img/Resume English-1.png" alt="Result1" width="350">
+  <img src="./img/Resume Japan-1.png" alt="Result2" width="350">
+</p>
 
 ## ✨ About This Portfolio
 This repository hosts my **personal portfolio website**, built with HTML, TailwindCSS, and JavaScript.  
