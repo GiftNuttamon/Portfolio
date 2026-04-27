@@ -1,373 +1,294 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio - Nuttamon Chanseeda</title>
+    <title>Portfolio - นัทธมน จันทร์สีดา</title>
+    <!-- โหลด Tailwind CSS ผ่าน CDN สำหรับจัด Layout แบบ Responsive -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- โหลด Font Awesome สำหรับไอคอนต่างๆ -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- โหลด Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;700&display=swap');
+        /* ตั้งค่า Font หลักเป็นภาษาไทย */
         body {
-            font-family: 'Sarabun', sans-serif;
-            background-color: #F6F5FA;
-            color: #1f3b54;
+            font-family: 'Kanit', sans-serif;
+            /* พื้นหลังธีมสีชมพูสดใส ไล่เฉดสี */
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
         }
-        .container {
-            max-width: 1200px;
-            margin: auto;
-            padding: 1rem;
+
+        /* คลาสสำหรับทำปุ่ม 3D อนิเมชั่น */
+        .btn-3d {
+            transition: all 0.2s ease;
+            position: relative;
+            transform: translateY(0);
         }
-        .section-title {
-            color: #21628D;
-            font-weight: 700;
-            font-size: 2.25rem;
-            margin-bottom: 1.5rem;
-            border-bottom: 4px solid #9AA9CF;
-            padding-bottom: 0.5rem;
+
+        /* เอฟเฟกต์ตอนเอาเมาส์ชี้ (Hover) - ปุ่มจะเด้งขึ้นและขยายขนาดนิดหน่อย */
+        .btn-3d:hover {
+            transform: translateY(-6px) scale(1.05);
+            /* สร้างเงาหลายชั้นให้ดูเป็น 3 มิติ ลอยขึ้นมา */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.15), 0 10px 0px 0px rgba(0,0,0,0.1);
         }
-        .card {
-            background-color: white;
-            border: 1px solid #D5E8F1;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s, box-shadow 0.2s;
+
+        /* เอฟเฟกต์ตอนกดคลิก (Active) - ปุ่มจะยุบลงไป */
+        .btn-3d:active {
+            transform: translateY(2px) scale(0.98);
+            box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 0px 0px 0px rgba(0,0,0,0.1);
         }
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.15);
-        }
-        .project-date {
-            color: #21628D;
-            font-weight: 500;
-        }
-        .project-title {
-            color: #1f3b54;
-            font-weight: 700;
-            font-size: 1.25rem;
-            margin-bottom: 0.5rem;
-        }
-        .project-link {
-            color: #21628D;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.2s;
-        }
-        .project-link:hover {
-            color: #1f3b54;
-        }
-        .btn-tiktok {
-            background-color: #1f3b54;
-            color: #F6F5FA;
-            font-weight: 700;
-            padding: 0.75rem 1.5rem;
-            border-radius: 9999px;
-            text-decoration: none;
-            transition: background-color 0.2s;
-        }
-        .btn-tiktok:hover {
-            background-color: #21628D;
-        }
-        .lang-button {
-            background-color: #D5E8F1;
-            color: #1f3b54;
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
-            font-size: 0.875rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: background-color 0.2s, color 0.2s;
-        }
-        .lang-button.active {
-            background-color: #21628D;
+
+        /* สีปุ่มแพลตฟอร์มเฉพาะ */
+        .bg-tiktok { background-color: #000000; color: white; box-shadow: 0 6px 0px 0px #333333; }
+        .bg-facebook { background-color: #1877F2; color: white; box-shadow: 0 6px 0px 0px #0e5a20; }
+        .bg-facebook { box-shadow: 0 6px 0px 0px #0c50a3; }
+        .bg-instagram { 
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); 
             color: white;
+            box-shadow: 0 6px 0px 0px #8b1062;
+        }
+
+        /* กล่องเนื้อหากระจกใส (Glassmorphism) ให้อ่านง่ายบนพื้นหลังไล่สี */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        /* Custom Scrollbar ให้เข้ากับธีม */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #fecfef;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ff9a9e;
+            border-radius: 5px;
         }
     </style>
 </head>
-<body class="bg-[#F6F5FA]">
-    <header class="bg-[#1f3b54] text-white p-6 shadow-md">
-        <div class="container flex flex-col md:flex-row justify-between items-center text-center md:text-left">
-            <h1 class="text-3xl font-bold">Nuttamon Chanseeda</h1>
-            <nav class="mt-4 md:mt-0 flex flex-col md:flex-row items-center md:space-x-4 space-y-2 md:space-y-0">
-                <div class="space-x-2">
-                    <a href="#projects" class="text-white hover:text-[#9AA9CF] transition-colors" data-lang-key="nav_projects">Engineering Projects</a>
-                    <a href="#videos" class="text-white hover:text-[#9AA9CF] transition-colors" data-lang-key="nav_videos">Video & Voice-over</a>
-                </div>
-                <!-- Resume buttons added here -->
-                <div class="flex space-x-2 mt-2 md:mt-0">
-                    <a href="resume/Resume English.pdf" target="_blank" class="lang-button" data-lang-key="resume_en">Resume (EN)</a>
-                    <a href="resume/Resume Japan.pdf" target="_blank" class="lang-button" data-lang-key="resume_jp">Resume (JP)</a>
-                </div>
-                <!-- Language buttons -->
-                <div class="flex space-x-2 mt-2 md:mt-0">
-                    <button class="lang-button active" onclick="changeLanguage('en')">EN</button>
-                    <button class="lang-button" onclick="changeLanguage('th')">TH</button>
-                    <button class="lang-button" onclick="changeLanguage('jp')">JP</button>
-                </div>
-            </nav>
-        </div>
+<body class="text-gray-800 pb-20">
+
+    <!-- Header Section -->
+    <header class="pt-12 pb-8 text-center px-4">
+        <h1 class="text-5xl md:text-7xl font-bold text-pink-600 drop-shadow-md mb-2">Portfolio</h1>
+        <p class="text-lg md:text-xl text-pink-800 font-medium">นัทธมน จันทร์สีดา (กิ๊ฟ) | Content Creator & Computer Engineering</p>
     </header>
 
-    <main class="container py-8">
-        <!-- Section: Computer Engineering & AI Projects -->
-        <section id="projects" class="mb-12">
-            <h2 class="section-title" data-lang-key="section_projects_title">Computer Engineering & AI Projects</h2>
+    <!-- Main Container -->
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24">
+
+        <!-- Section 1: ผลงานที่ 1 -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+            
+            <!-- ด้านซ้าย: วีดีโอ 9:16 และ ปุ่มโซเชียล (ใช้พื้นที่ 5 คอลัมน์บนจอใหญ่) -->
+            <div class="lg:col-span-5 flex flex-col items-center lg:items-end">
+                
+                <!-- กล่องใส่วีดีโอ อัตราส่วน 9:16 -->
+                <div class="relative w-full max-w-[320px] aspect-[9/16] rounded-3xl overflow-hidden shadow-2xl bg-black group border-4 border-white">
+                    <!-- วีดีโอ (Autoplay, Loop, Muted เพื่อให้เล่นอัตโนมัติตามนโยบายเบราว์เซอร์) -->
+                    <video id="video1" class="w-full h-full object-cover" autoplay loop muted playsinline>
+                        <!-- ใช้ลิ้งค์วีดีโอตัวอย่างแนวตั้ง คุณสามารถเปลี่ยน src เป็นลิ้งค์วีดีโอของคุณเองได้ -->
+                        <source src="https://videos.pexels.com/video-files/4057322/4057322-uhd_1440_2560_25fps.mp4" type="video/mp4">
+                        เบราว์เซอร์ของคุณไม่รองรับการเล่นวีดีโอ
+                    </video>
+
+                    <!-- ปุ่มควบคุมเสียง (วางทับบนวีดีโอ) -->
+                    <button onclick="toggleMute('video1', 'muteIcon1')" class="absolute bottom-4 right-4 bg-white/80 hover:bg-white text-pink-600 w-12 h-12 rounded-full flex items-center justify-center shadow-lg backdrop-blur-sm transition-transform hover:scale-110 z-10 focus:outline-none">
+                        <i id="muteIcon1" class="fas fa-volume-mute text-xl"></i>
+                    </button>
+                </div>
+
+                <!-- กลุ่มปุ่ม Social Media เรียงซ้ายไปขวา ด้านล่างวีดีโอ -->
+                <div class="flex justify-center gap-4 mt-6 w-full max-w-[320px]">
+                    <!-- ปุ่ม TikTok -->
+                    <a href="#" target="_blank" class="btn-3d bg-tiktok flex-1 py-3 rounded-xl text-center text-xl" title="ดูบน TikTok">
+                        <i class="fab fa-tiktok"></i>
+                    </a>
+                    <!-- ปุ่ม Facebook -->
+                    <a href="#" target="_blank" class="btn-3d bg-facebook flex-1 py-3 rounded-xl text-center text-xl" title="ดูบน Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <!-- ปุ่ม Instagram -->
+                    <a href="#" target="_blank" class="btn-3d bg-instagram flex-1 py-3 rounded-xl text-center text-xl" title="ดูบน Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- ด้านขวา: คำบรรยายผลงาน (ใช้พื้นที่ 7 คอลัมน์บนจอใหญ่) -->
+            <div class="lg:col-span-7">
+                <div class="glass-card rounded-3xl p-8 shadow-xl">
+                    <div class="inline-block px-4 py-1 bg-pink-100 text-pink-600 rounded-full text-sm font-semibold mb-4 border border-pink-200">
+                        Corporate Communication
+                    </div>
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">โปรโมทกิจกรรม ศูนย์รับสมัครนักศึกษา TNI</h2>
+                    
+                    <div class="space-y-4 text-gray-700 text-lg">
+                        <p>
+                            <strong>บทบาท:</strong> ดูแลการผลิตคอนเทนต์ตั้งแต่ต้นน้ำถึงปลายน้ำในแผนกการตลาดออนไลน์ สถาบันเทคโนโลยีไทย - ญี่ปุ่น
+                        </p>
+                        <p>
+                            <strong>กระบวนการทำงาน:</strong>
+                            <ul class="list-disc pl-6 mt-2 space-y-2">
+                                <li><strong>Ideation:</strong> วิเคราะห์กลุ่มเป้าหมาย (นักเรียน ม.ปลาย) และใช้ AI (Gemini) ช่วยระดมสมองในการเขียน Script</li>
+                                <li><strong>Production:</strong> วางสตอรี่บอร์ดในหัว ดำเนินการถ่ายทำด้วยมุมกล้องแนวตั้งที่เหมาะกับ Short-form video และกำกับนักแสดง (นักศึกษา)</li>
+                                <li><strong>Post-Production:</strong> ตัดต่อวีดีโอ ใส่เอฟเฟกต์ เพิ่มซับไตเติ้ล และคิดแคปชั่นดึงดูดใจ</li>
+                                <li><strong>Data Analysis:</strong> ติดตามผล และทำตารางสรุปยอด Engagement ประจำเดือนเพื่อปรับปรุงคอนเทนต์ถัดไป</li>
+                            </ul>
+                        </p>
+                        <p class="mt-4 pt-4 border-t border-gray-300/50 text-pink-700 font-medium">
+                            <i class="fas fa-chart-line mr-2"></i> ผลลัพธ์: สามารถเพิ่มยอดการเข้าถึง (Reach) บนแพลตฟอร์ม TikTok ได้อย่างเป็นรูปธรรม
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: ผลงานที่ 2 (ตัวอย่างเพิ่มเติม เพื่อให้เห็น Layout แบบสลับด้าน) -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center mt-20">
+            
+            <!-- สลับด้านขวาบน Desktop เป็นด้านซ้ายสำหรับมือถือ (order-2 lg:order-1) -->
+            <div class="lg:col-span-7 order-2 lg:order-1">
+                <div class="glass-card rounded-3xl p-8 shadow-xl">
+                    <div class="inline-block px-4 py-1 bg-purple-100 text-purple-600 rounded-full text-sm font-semibold mb-4 border border-purple-200">
+                        Freelance Project
+                    </div>
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">วีดีโอพรีเซนต์ โรงเรียนบดินทรเดชา</h2>
+                    
+                    <div class="space-y-4 text-gray-700 text-lg">
+                        <p>
+                            <strong>โจทย์:</strong> ถ่ายทำและตัดต่อวีดีโอนำเสนอผลงานของนักเรียน ม.3/3 ให้ออกมาดูน่าสนใจและมีความทันสมัย
+                        </p>
+                        <p>
+                            <strong>กระบวนการทำงาน:</strong>
+                            <ul class="list-disc pl-6 mt-2 space-y-2">
+                                <li>ลงพื้นที่ถ่ายทำจริงที่โรงเรียน เก็บบรรยากาศและบทสัมภาษณ์</li>
+                                <li>ออกแบบ Flow การเล่าเรื่องให้กระชับ ไม่น่าเบื่อ เหมาะกับสมาธิคนดูยุคใหม่</li>
+                                <li>ใช้ทักษะการตัดต่อขั้นสูงในการผสมผสานภาพเคลื่อนไหว เสียงประกอบ และ Graphic text</li>
+                            </ul>
+                        </p>
+                        <p class="mt-4 pt-4 border-t border-gray-300/50 text-purple-700 font-medium">
+                            <i class="fas fa-star mr-2"></i> ความภูมิใจ: นำทักษะการทำงานเป็นทีมและการประสานงานมาใช้จัดการกับกลุ่มคนจำนวนมากได้สำเร็จตรงตามเวลา
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ด้านขวาของจอ (หรือด้านบนของมือถือ) order-1 lg:order-2 -->
+            <div class="lg:col-span-5 order-1 lg:order-2 flex flex-col items-center lg:items-start">
+                <div class="relative w-full max-w-[320px] aspect-[9/16] rounded-3xl overflow-hidden shadow-2xl bg-black group border-4 border-white">
+                    <video id="video2" class="w-full h-full object-cover" autoplay loop muted playsinline>
+                        <source src="https://videos.pexels.com/video-files/5896379/5896379-uhd_1440_2560_24fps.mp4" type="video/mp4">
+                        เบราว์เซอร์ของคุณไม่รองรับการเล่นวีดีโอ
+                    </video>
+                    <!-- ปุ่มควบคุมเสียง -->
+                    <button onclick="toggleMute('video2', 'muteIcon2')" class="absolute bottom-4 right-4 bg-white/80 hover:bg-white text-purple-600 w-12 h-12 rounded-full flex items-center justify-center shadow-lg backdrop-blur-sm transition-transform hover:scale-110 z-10 focus:outline-none">
+                        <i id="muteIcon2" class="fas fa-volume-mute text-xl"></i>
+                    </button>
+                </div>
+
+                <div class="flex justify-center gap-4 mt-6 w-full max-w-[320px]">
+                    <a href="#" target="_blank" class="btn-3d bg-tiktok flex-1 py-3 rounded-xl text-center text-xl">
+                        <i class="fab fa-tiktok"></i>
+                    </a>
+                    <a href="#" target="_blank" class="btn-3d bg-facebook flex-1 py-3 rounded-xl text-center text-xl">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" target="_blank" class="btn-3d bg-instagram flex-1 py-3 rounded-xl text-center text-xl">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: ผลงานด้านวิศวกรรมคอมพิวเตอร์และปัญญาประดิษฐ์ -->
+        <section id="projects" class="mt-24">
+            <h2 class="text-3xl md:text-5xl font-bold text-center text-pink-600 mb-12 drop-shadow-sm" data-lang-key="section_projects_title">ผลงานด้านวิศวกรรมคอมพิวเตอร์และปัญญาประดิษฐ์</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Project 1: รถจิ๋วติดกล้องอินฟาเรด -->
-                <div class="card p-6 rounded-lg">
-                    <div class="project-date text-sm mb-1">May, 2025</div>
-                    <div class="project-title" data-lang-key="proj1_title">Mini Car with ESP32 & AMG88xx Infrared Camera and Control Web App</div>
-                    <p class="text-gray-600 mb-4 text-sm" data-lang-key="proj1_desc">This project uses ESP32-CAM to stream video (MJPEG), control motors, and read real-time thermal sensor data (AMG88xx) via Server-Sent Events (SSE).</p>
-                    <a href="https://github.com/GiftNuttamon/Mini-CAR-with-server-ESP32CAMS3-infraredAMG8853" target="_blank" class="project-link" data-lang-key="view_github">View on GitHub →</a>
+                <div class="glass-card p-6 rounded-2xl shadow-lg hover:-translate-y-2 transition-transform duration-300 flex flex-col h-full border-t-4 border-t-pink-400">
+                    <div class="text-sm font-semibold text-pink-500 mb-2">May, 2025</div>
+                    <div class="text-xl font-bold text-gray-800 mb-3 leading-tight" data-lang-key="proj1_title">รถจิ๋วติดกล้องอินฟาเรด AMG88xx &amp; ESP32 และเว็บแอพควบคุม</div>
+                    <p class="text-gray-700 mb-6 flex-grow" data-lang-key="proj1_desc">โปรเจกต์นี้ใช้ ESP32-CAM เพื่อสตรีมวิดีโอ (MJPEG) ควบคุมมอเตอร์ และอ่านข้อมูลเซ็นเซอร์ความร้อน (AMG88xx) แบบเรียลไทม์ผ่าน Server-Sent Events (SSE).</p>
+                    <a href="https://github.com/GiftNuttamon/Mini-CAR-with-server-ESP32CAMS3-infraredAMG8853" target="_blank" class="inline-block w-full py-2.5 bg-pink-500 hover:bg-pink-600 text-white rounded-xl text-center font-medium transition-colors shadow-md" data-lang-key="view_github"><i class="fab fa-github mr-2 text-lg"></i>ดูโปรเจกต์บน GitHub</a>
                 </div>
 
                 <!-- Project 2: เว็บร้านอุดมสุขฟิล์ม -->
-                <div class="card p-6 rounded-lg">
-                    <div class="project-date text-sm mb-1">June, 2025</div>
-                    <div class="project-title" data-lang-key="proj2_title">Freelance: Udomsuk Film Website</div>
-                    <p class="text-gray-600 mb-4 text-sm" data-lang-key="proj2_desc">UX/UI Design & Frontend & Hosting for a static SEO-optimized website without a backend.</p>
-                    <a href="https://udomsukfilm-srinakarin53.com/" target="_blank" class="project-link" data-lang-key="view_website">View Website →</a>
+                <div class="glass-card p-6 rounded-2xl shadow-lg hover:-translate-y-2 transition-transform duration-300 flex flex-col h-full border-t-4 border-t-purple-400">
+                    <div class="text-sm font-semibold text-purple-500 mb-2">June, 2025</div>
+                    <div class="text-xl font-bold text-gray-800 mb-3 leading-tight" data-lang-key="proj2_title">Freelance: เว็บไซต์ร้านอุดมสุขฟิล์ม</div>
+                    <p class="text-gray-700 mb-6 flex-grow" data-lang-key="proj2_desc">งาน UX/UI Design &amp; Frontend &amp; Hosting สำหรับเว็บโฆษณา SEO ที่ไม่มี Backend.</p>
+                    <a href="https://udomsukfilm-srinakarin53.com/" target="_blank" class="inline-block w-full py-2.5 bg-purple-500 hover:bg-purple-600 text-white rounded-xl text-center font-medium transition-colors shadow-md" data-lang-key="view_website"><i class="fas fa-globe mr-2 text-lg"></i>ดูเว็บไซต์</a>
                 </div>
 
                 <!-- Project 3: Traffic Signs Detection -->
-                <div class="card p-6 rounded-lg">
-                    <div class="project-date text-sm mb-1">February, 2025</div>
-                    <div class="project-title" data-lang-key="proj3_title">Traffic Signs Detection with RaspberryPi 5</div>
-                    <p class="text-gray-600 mb-4 text-sm" data-lang-key="proj3_desc">Labeled a dataset in TensorFlow, trained a model, and tested it on a RaspberryPi 5 using Python.</p>
-                    <a href="https://github.com/GiftNuttamon/Sign_RaspberryPi/blob/main/Code_Project.ipynb" target="_blank" class="project-link" data-lang-key="view_github_code">View Code on GitHub →</a>
+                <div class="glass-card p-6 rounded-2xl shadow-lg hover:-translate-y-2 transition-transform duration-300 flex flex-col h-full border-t-4 border-t-pink-400">
+                    <div class="text-sm font-semibold text-pink-500 mb-2">February, 2025</div>
+                    <div class="text-xl font-bold text-gray-800 mb-3 leading-tight" data-lang-key="proj3_title">Traffic Signs Detection with RaspberryPi 5</div>
+                    <p class="text-gray-700 mb-6 flex-grow" data-lang-key="proj3_desc">นำ dataset ไปเทรนโมเดลด้วย TensorFlow และทดสอบบน RaspberryPi 5 ด้วย Python.</p>
+                    <a href="https://github.com/GiftNuttamon/Sign_RaspberryPi/blob/main/Code_Project.ipynb" target="_blank" class="inline-block w-full py-2.5 bg-pink-500 hover:bg-pink-600 text-white rounded-xl text-center font-medium transition-colors shadow-md" data-lang-key="view_github_code"><i class="fab fa-github mr-2 text-lg"></i>ดูโค้ดบน GitHub</a>
                 </div>
 
                 <!-- Project 4: ESP32 Volume Control -->
-                <div class="card p-6 rounded-lg">
-                    <div class="project-date text-sm mb-1">May, 2025</div>
-                    <div class="project-title" data-lang-key="proj4_title">ESP32 Volume Control System & Game</div>
-                    <p class="text-gray-600 mb-4 text-sm" data-lang-key="proj4_desc">A system to control volume and game mode with a Potentiometer, display on an OLED screen, and use PWM for LED brightness.</p>
-                    <a href="https://github.com/GiftNuttamon/ESP32-Volume-Control-System-Game" target="_blank" class="project-link" data-lang-key="view_github">View on GitHub →</a>
+                <div class="glass-card p-6 rounded-2xl shadow-lg hover:-translate-y-2 transition-transform duration-300 flex flex-col h-full border-t-4 border-t-purple-400">
+                    <div class="text-sm font-semibold text-purple-500 mb-2">May, 2025</div>
+                    <div class="text-xl font-bold text-gray-800 mb-3 leading-tight" data-lang-key="proj4_title">ESP32 Volume Control System &amp; Game</div>
+                    <p class="text-gray-700 mb-6 flex-grow" data-lang-key="proj4_desc">ระบบควบคุมระดับเสียงและเกมด้วย Potentiometer แสดงผลบนจอ OLED และใช้ PWM ควบคุมความสว่าง LED.</p>
+                    <a href="https://github.com/GiftNuttamon/ESP32-Volume-Control-System-Game" target="_blank" class="inline-block w-full py-2.5 bg-purple-500 hover:bg-purple-600 text-white rounded-xl text-center font-medium transition-colors shadow-md" data-lang-key="view_github"><i class="fab fa-github mr-2 text-lg"></i>ดูโปรเจกต์บน GitHub</a>
                 </div>
 
                 <!-- Project 5: React-Bootstrap 5 Website -->
-                <div class="card p-6 rounded-lg">
-                    <div class="project-date text-sm mb-1">March, 2025</div>
-                    <div class="project-title" data-lang-key="proj5_title">React-Bootstrap 5 Website & Xampp Database</div>
-                    <p class="text-gray-600 mb-4 text-sm" data-lang-key="proj5_desc">A React web app about wishing upon a star, with a registration/login system and real-time data storage in a Xampp database.</p>
-                    <a href="https://github.com/GiftNuttamon/WebWishes" target="_blank" class="project-link" data-lang-key="view_github">View on GitHub →</a>
+                <div class="glass-card p-6 rounded-2xl shadow-lg hover:-translate-y-2 transition-transform duration-300 flex flex-col h-full border-t-4 border-t-pink-400">
+                    <div class="text-sm font-semibold text-pink-500 mb-2">March, 2025</div>
+                    <div class="text-xl font-bold text-gray-800 mb-3 leading-tight" data-lang-key="proj5_title">React-Bootstrap 5 Website &amp; Xampp Database</div>
+                    <p class="text-gray-700 mb-6 flex-grow" data-lang-key="proj5_desc">เว็บเกี่ยวกับคำอธิษฐานแห่งดวงดาว มีระบบลงทะเบียน/ล็อคอิน และเก็บข้อมูลใน Xampp Database แบบเรียลไทม์.</p>
+                    <a href="https://github.com/GiftNuttamon/WebWishes" target="_blank" class="inline-block w-full py-2.5 bg-pink-500 hover:bg-pink-600 text-white rounded-xl text-center font-medium transition-colors shadow-md" data-lang-key="view_github"><i class="fab fa-github mr-2 text-lg"></i>ดูโปรเจกต์บน GitHub</a>
                 </div>
                 
                 <!-- Project 6: TNI Student Interest Platform -->
-                <div class="card p-6 rounded-lg">
-                    <div class="project-date text-sm mb-1">September, 2025</div>
-                    <div class="project-title" data-lang-key="proj6_title">TNI Prospective Student Interest Platform with Firebase</div>
-                    <p class="text-gray-600 mb-4 text-sm" data-lang-key="proj6_desc">A website and dashboard for securely collecting data from prospective students, integrated with social media marketing campaigns.</p>
-                    <a href="https://giftnuttamon.github.io/TNI-Prospective-Student-Interest-Platform/" target="_blank" class="project-link" data-lang-key="view_website">View Website →</a>
+                <div class="glass-card p-6 rounded-2xl shadow-lg hover:-translate-y-2 transition-transform duration-300 flex flex-col h-full border-t-4 border-t-purple-400">
+                    <div class="text-sm font-semibold text-purple-500 mb-2">September, 2025</div>
+                    <div class="text-xl font-bold text-gray-800 mb-3 leading-tight" data-lang-key="proj6_title">TNI Prospective Student Interest Platform with Firebase</div>
+                    <p class="text-gray-700 mb-6 flex-grow" data-lang-key="proj6_desc">สร้างเว็บไซต์และ Dashboard เพื่อเก็บข้อมูลนักศึกษาศักยภาพ เชื่อมโยงกับการยิงโฆษณาโซเชียลมีเดีย.</p>
+                    <a href="https://giftnuttamon.github.io/TNI-Prospective-Student-Interest-Platform/" target="_blank" class="inline-block w-full py-2.5 bg-purple-500 hover:bg-purple-600 text-white rounded-xl text-center font-medium transition-colors shadow-md" data-lang-key="view_website"><i class="fas fa-globe mr-2 text-lg"></i>ดูเว็บไซต์</a>
                 </div>
             </div>
         </section>
 
-        <!-- Section: Video & Voice-over Projects -->
-        <section id="videos" class="mb-12">
-            <h2 class="section-title" data-lang-key="section_videos_title">Video & Voice-over Projects</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Video 1 -->
-                <div class="card p-6 rounded-lg flex flex-col items-center text-center">
-                    <div class="aspect-w-16 aspect-h-9 w-full mb-4">
-                        <iframe class="w-full h-full rounded-lg" src="https://www.tiktok.com/embed/7548306526578953479" frameborder="0" allowfullscreen></iframe>
-                    </div>
-                    <a href="https://www.tiktok.com/@thai_nichi/video/7548306526578953479" target="_blank" class="btn-tiktok" data-lang-key="view_on_tiktok">View on TikTok</a>
-                </div>
-
-                <!-- Video 2 -->
-                <div class="card p-6 rounded-lg flex flex-col items-center text-center">
-                    <div class="aspect-w-16 aspect-h-9 w-full mb-4">
-                        <iframe class="w-full h-full rounded-lg" src="https://www.tiktok.com/embed/7546536533373750546" frameborder="0" allowfullscreen></iframe>
-                    </div>
-                    <a href="https://www.tiktok.com/@thai_nichi/video/7546536533373750546" target="_blank" class="btn-tiktok" data-lang-key="view_on_tiktok">View on TikTok</a>
-                </div>
-
-                <!-- Video 3 -->
-                <div class="card p-6 rounded-lg flex flex-col items-center text-center">
-                    <div class="aspect-w-16 aspect-h-9 w-full mb-4">
-                        <iframe class="w-full h-full rounded-lg" src="https://www.tiktok.com/embed/7543190572291476754" frameborder="0" allowfullscreen></iframe>
-                    </div>
-                    <a href="https://www.tiktok.com/@thai_nichi/video/7543190572291476754" target="_blank" class="btn-tiktok" data-lang-key="view_on_tiktok">View on TikTok</a>
-                </div>
-
-                <!-- Video 4 -->
-                <div class="card p-6 rounded-lg flex flex-col items-center text-center">
-                    <div class="aspect-w-16 aspect-h-9 w-full mb-4">
-                        <iframe class="w-full h-full rounded-lg" src="https://www.tiktok.com/embed/7541351589831773458" frameborder="0" allowfullscreen></iframe>
-                    </div>
-                    <a href="https://www.tiktok.com/@thai_nichi/video/7541351589831773458" target="_blank" class="btn-tiktok" data-lang-key="view_on_tiktok">View on TikTok</a>
-                </div>
-
-                <!-- Video 5 -->
-                <div class="card p-6 rounded-lg flex flex-col items-center text-center">
-                    <div class="aspect-w-16 aspect-h-9 w-full mb-4">
-                        <iframe class="w-full h-full rounded-lg" src="https://www.tiktok.com/embed/7538010631060917522" frameborder="0" allowfullscreen></iframe>
-                    </div>
-                    <a href="https://www.tiktok.com/@thai_nichi/video/7538010631060917522" target="_blank" class="btn-tiktok" data-lang-key="view_on_tiktok">View on TikTok</a>
-                </div>
-
-                <!-- Video 6 -->
-                <div class="card p-6 rounded-lg flex flex-col items-center text-center">
-                    <div class="aspect-w-16 aspect-h-9 w-full mb-4">
-                        <iframe class="w-full h-full rounded-lg" src="https://www.tiktok.com/embed/7536134712151117074" frameborder="0" allowfullscreen></iframe>
-                    </div>
-                    <a href="https://www.tiktok.com/@thai_nichi/video/7536134712151117074" target="_blank" class="btn-tiktok" data-lang-key="view_on_tiktok">View on TikTok</a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section: Japanese Language & Culture -->
-        <section class="mb-12">
-            <h2 class="section-title" data-lang-key="section_japanese_title">Japanese Language & Culture</h2>
-            <div class="card p-6 rounded-lg">
-                <div class="project-date text-sm mb-1">August, 2025</div>
-                <div class="project-title" data-lang-key="jp_proj_title">Japanese Student Exchange Program Mentor</div>
-                <ul class="list-disc list-inside text-gray-600 space-y-2 text-sm" data-lang-key="jp_proj_desc_ul">
-                    <li>Led students on a chemistry lab activity at Triam Udom Suksa Pattanakarn School.</li>
-                    <li>Guided Thai language practice and cultural exchange activities, such as Thai dance, at Srinakharinwirot University Prasarnmit Demonstration School.</li>
-                    <li>Acted as a guide for a trip to Talat Rot Fai Srinakarin (Train Night Market).</li>
-                </ul>
-            </div>
-        </section>
     </main>
 
-    <footer class="bg-[#1f3b54] text-white text-center p-4 mt-8">
-        <p data-lang-key="footer_text">Created by Nuttamon Chanseeda, 2025</p>
+    <!-- Footer -->
+    <footer class="mt-24 text-center text-pink-800 pb-8 px-4">
+        <p class="font-medium">© 2026 Nuttamon Portfolio. Ready for new opportunities!</p>
+        <p class="text-sm mt-2">Email: gift.knuttamon@gmail.com | Tel: 062 742 4492</p>
     </footer>
 
+    <!-- JavaScript สำหรับควบคุมระบบวีดีโอ -->
     <script>
-        const translations = {
-            'en': {
-                'nav_projects': 'Engineering Projects',
-                'nav_videos': 'Video & Voice-over',
-                'resume_en': 'Resume (EN)',
-                'resume_jp': 'Resume (JP)',
-                'section_projects_title': 'Computer Engineering & AI Projects',
-                'proj1_title': 'Mini Car with ESP32 & AMG88xx Infrared Camera and Control Web App',
-                'proj1_desc': 'This project uses ESP32-CAM to stream video (MJPEG), control motors, and read real-time thermal sensor data (AMG88xx) via Server-Sent Events (SSE).',
-                'view_github': 'View on GitHub →',
-                'proj2_title': 'Freelance: Udomsuk Film Website',
-                'proj2_desc': 'UX/UI Design & Frontend & Hosting for a static SEO-optimized website without a backend.',
-                'view_website': 'View Website →',
-                'proj3_title': 'Traffic Signs Detection with RaspberryPi 5',
-                'proj3_desc': 'Labeled a dataset in TensorFlow, trained a model, and tested it on a RaspberryPi 5 using Python.',
-                'view_github_code': 'View Code on GitHub →',
-                'proj4_title': 'ESP32 Volume Control System & Game',
-                'proj4_desc': 'A system to control volume and game mode with a Potentiometer, display on an OLED screen, and use PWM for LED brightness.',
-                'proj5_title': 'React-Bootstrap 5 Website & Xampp Database',
-                'proj5_desc': 'A React web app about wishing upon a star, with a registration/login system and real-time data storage in a Xampp database.',
-                'proj6_title': 'TNI Prospective Student Interest Platform with Firebase',
-                'proj6_desc': 'A website and dashboard for securely collecting data from prospective students, integrated with social media marketing campaigns.',
-                'section_videos_title': 'Video & Voice-over Projects',
-                'view_on_tiktok': 'View on TikTok',
-                'section_japanese_title': 'Japanese Language & Culture',
-                'jp_proj_title': 'Japanese Student Exchange Program Mentor',
-                'jp_proj_desc_ul': [
-                    'Led students on a chemistry lab activity at Triam Udom Suksa Pattanakarn School.',
-                    'Guided Thai language practice and cultural exchange activities, such as Thai dance, at Srinakharinwirot University Prasarnmit Demonstration School.',
-                    'Acted as a guide for a trip to Talat Rot Fai Srinakarin (Train Night Market).'
-                ],
-                'footer_text': 'Created by Nuttamon Chanseeda, 2025'
-            },
-            'th': {
-                'nav_projects': 'ผลงานวิศวกรรม',
-                'nav_videos': 'ผลงานวีดีโอและพากย์เสียง',
-                'resume_en': 'เรซูเม่ (อังกฤษ)',
-                'resume_jp': 'เรซูเม่ (ญี่ปุ่น)',
-                'section_projects_title': 'ผลงานด้านวิศวกรรมคอมพิวเตอร์และปัญญาประดิษฐ์',
-                'proj1_title': 'รถจิ๋วติดกล้องอินฟาเรด AMG88xx & ESP32 และเว็บแอพควบคุม',
-                'proj1_desc': 'โปรเจกต์นี้ใช้ ESP32-CAM เพื่อสตรีมวิดีโอ (MJPEG) ควบคุมมอเตอร์ และอ่านข้อมูลเซ็นเซอร์ความร้อน (AMG88xx) แบบเรียลไทม์ผ่าน Server-Sent Events (SSE).',
-                'view_github': 'ดูโปรเจกต์บน GitHub →',
-                'proj2_title': 'Freelance: เว็บไซต์ร้านอุดมสุขฟิล์ม',
-                'proj2_desc': 'งาน UX/UI Design & Frontend & Hosting สำหรับเว็บโฆษณา SEO ที่ไม่มี Backend.',
-                'view_website': 'ดูเว็บไซต์ →',
-                'proj3_title': 'Traffic Signs Detection with RaspberryPi 5',
-                'proj3_desc': 'นำ dataset ไปเทรนโมเดลด้วย TensorFlow และทดสอบบน RaspberryPi 5 ด้วย Python.',
-                'view_github_code': 'ดูโค้ดบน GitHub →',
-                'proj4_title': 'ESP32 Volume Control System & Game',
-                'proj4_desc': 'ระบบควบคุมระดับเสียงและเกมด้วย Potentiometer แสดงผลบนจอ OLED และใช้ PWM ควบคุมความสว่าง LED.',
-                'proj5_title': 'React-Bootstrap 5 Website & Xampp Database',
-                'proj5_desc': 'เว็บเกี่ยวกับคำอธิษฐานแห่งดวงดาว มีระบบลงทะเบียน/ล็อคอิน และเก็บข้อมูลใน Xampp Database แบบเรียลไทม์.',
-                'proj6_title': 'TNI Prospective Student Interest Platform with Firebase',
-                'proj6_desc': 'สร้างเว็บไซต์และ Dashboard เพื่อเก็บข้อมูลนักศึกษาศักยภาพ เชื่อมโยงกับการยิงโฆษณาโซเชียลมีเดีย.',
-                'section_videos_title': 'ผลงานการถ่ายคลิป ตัดวีดีโอและพากย์เสียง',
-                'view_on_tiktok': 'ดูบน TikTok',
-                'section_japanese_title': 'ผลงานด้านภาษาญี่ปุ่น',
-                'jp_proj_title': 'พี่เลี้ยงนักเรียนญี่ปุ่นในกิจกรรมแลกเปลี่ยน',
-                'jp_proj_desc_ul': [
-                    'พานักเรียนไปทำกิจกรรมห้องแลปเคมีที่โรงเรียนเตรียมอุดมศึกษาพัฒนาการ',
-                    'พาไปทำกิจกรรมฝึกภาษาไทยและแลกเปลี่ยนวัฒนธรรมไทย เช่น รำไทย ที่โรงเรียนมศว.ประสานมิตรฝ่ายมัธยม',
-                    'เป็นไกด์พาเที่ยวตลาดนัดรถไฟศรีนครินทร์ (ตลาดโบราณ)'
-                ],
-                'footer_text': 'สร้างสรรค์โดย นัทธมน จันทร์สีดา, 2025'
-            },
-            'jp': {
-                'nav_projects': 'エンジニアリングプロジェクト',
-                'nav_videos': '動画・ナレーション',
-                'resume_en': '履歴書 (英語)',
-                'resume_jp': '履歴書 (日本語)',
-                'section_projects_title': 'コンピューター工学およびAIプロジェクト',
-                'proj1_title': 'ESP32およびAMG88xx赤外線カメラ搭載ミニカーおよび制御ウェブアプリ',
-                'proj1_desc': 'このプロジェクトは、ESP32-CAMを使用して、ビデオ(MJPEG)のストリーミング、モーターの制御、およびServer-Sent Events(SSE)を介したAMG88xx熱センサーデータのリアルタイム読み取りを行います。',
-                'view_github': 'GitHubで見る →',
-                'proj2_title': 'フリーランス：ウドムスックフィルムウェブサイト',
-                'proj2_desc': 'バックエンドのない静的SEO最適化ウェブサイトのUX/UIデザイン、フロントエンド、およびホスティング。',
-                'view_website': 'ウェブサイトを見る →',
-                'proj3_title': 'RaspberryPi 5による交通標識検出',
-                'proj3_desc': 'TensorFlowでデータセットにラベル付けし、モデルをトレーニングし、Pythonを使用してRaspberryPi 5でテストしました。',
-                'view_github_code': 'GitHubでコードを見る →',
-                'proj4_title': 'ESP32ボリュームコントロールシステム＆ゲーム',
-                'proj4_desc': 'ポテンショメータで音量とゲームモードを制御し、OLED画面に表示し、PWMを使用してLEDの明るさを制御するシステム。',
-                'proj5_title': 'React-Bootstrap 5ウェブサイト＆Xamppデータベース',
-                'proj5_desc': '星に願いをかけるReactウェブアプリで、登録/ログインシステムとXamppデータベースへのリアルタイムデータ保存機能を備えています。',
-                'proj6_title': 'Firebaseを使用したTNI見込み学生関心プラットフォーム',
-                'proj6_desc': '見込み学生のデータを安全に収集し、ソーシャルメディアマーケティングキャンペーンと統合するためのウェブサイトとダッシュボード。',
-                'section_videos_title': '動画・ナレーションプロジェクト',
-                'view_on_tiktok': 'TikTokで見る',
-                'section_japanese_title': '日本語および文化',
-                'jp_proj_title': '日本人学生交換プログラムメンター',
-                'jp_proj_desc_ul': [
-                    'トライアム・ウドム・スクサ・パッタナーカン高校で化学実験室活動に学生を案内しました。',
-                    'シナーカリンウィロート大学プラサーンミット実習学校でタイ語練習やタイ舞踊などの文化交流活動を指導しました。',
-                    'タラート・ロットファイ・シーナカリン（鉄道ナイトマーケット）への旅行ガイドを務めました。'
-                ],
-                'footer_text': '作成者：Nuttamon Chanseeda, 2025'
+        // ฟังก์ชันสำหรับเปิด-ปิดเสียงวีดีโอ และเปลี่ยนไอคอน
+        function toggleMute(videoId, iconId) {
+            const video = document.getElementById(videoId);
+            const icon = document.getElementById(iconId);
+
+            if (video.muted) {
+                // ถ้าเสียงปิดอยู่ ให้เปิดเสียง
+                video.muted = false;
+                // เปลี่ยนไอคอนเป็น ลำโพงเปิด
+                icon.classList.remove('fa-volume-mute');
+                icon.classList.add('fa-volume-up');
+            } else {
+                // ถ้าเสียงเปิดอยู่ ให้ปิดเสียง
+                video.muted = true;
+                // เปลี่ยนไอคอนเป็น ลำโพงปิด
+                icon.classList.remove('fa-volume-up');
+                icon.classList.add('fa-volume-mute');
             }
-        };
-
-        const elementsToTranslate = document.querySelectorAll('[data-lang-key]');
-
-        function changeLanguage(lang) {
-            document.documentElement.lang = lang;
-            const currentTranslations = translations[lang];
-
-            elementsToTranslate.forEach(el => {
-                const key = el.getAttribute('data-lang-key');
-                if (key in currentTranslations) {
-                    const value = currentTranslations[key];
-                    if (Array.isArray(value)) {
-                        const listItems = el.querySelectorAll('li');
-                        listItems.forEach((li, index) => {
-                            if (value[index]) {
-                                li.textContent = value[index];
-                            }
-                        });
-                    } else {
-                        el.textContent = value;
-                    }
-                }
-            });
-
-            // Update active button state
-            document.querySelectorAll('.lang-button').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            document.querySelector(`.lang-button[onclick="changeLanguage('${lang}')"]`).classList.add('active');
         }
-
-        // Set initial language to English on page load
-        document.addEventListener('DOMContentLoaded', () => {
-            changeLanguage('en');
-        });
     </script>
 </body>
 </html>
